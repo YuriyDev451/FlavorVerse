@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "831885311118",
+    "firebase_url": "https://flavorverse-83801-default-rtdb.firebaseio.com",
+    "project_id": "flavorverse-83801",
+    "storage_bucket": "flavorverse-83801.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:831885311118:android:e0e14c107405d99e171ddf",
+        "android_client_info": {
+          "package_name": "com.gukunov.flavorverse"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "831885311118-bigd3hgs4un0feku4qt8a73arbq1ulkq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gukunov.flavorverse",
+            "certificate_hash": "90a05b015ac8ed8d1d1a888850df85be13da4d3b"
+          }
+        },
+        {
+          "client_id": "831885311118-7rt3o3tup5ksm405a9loirducj1nd3cu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWJL8rJaexxpbdj2Eiy5uQMJ7KDEJmZ-k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "831885311118-7rt3o3tup5ksm405a9loirducj1nd3cu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

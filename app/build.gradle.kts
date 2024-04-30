@@ -3,6 +3,8 @@ plugins {
     id(Plugins.jetbrainsKotlin)
     id(Plugins.kotlinKapt)
     id(Plugins.hilt)
+
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -38,6 +40,11 @@ android {
 }
 
 dependencies {
+
+    implementation(project(":features"))
+    implementation(project(":common"))
+
+
     implementation(Dependencies.UI.material)
     implementation(Dependencies.UI.constraintLayout)
     implementation(Dependencies.UI.appCompat)
@@ -50,5 +57,8 @@ dependencies {
 
     implementation(Dependencies.Hilt.hilt)
     kapt(Dependencies.Hilt.hiltKapt)
+
+    implementation(platform("com.google.firebase:firebase-bom:32.8.1"))
+    implementation("com.google.firebase:firebase-analytics")
 
 }
