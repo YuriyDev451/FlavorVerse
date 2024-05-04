@@ -41,6 +41,8 @@ dependencies {
     implementation("com.google.firebase:firebase-auth-ktx")
     implementation("com.google.android.gms:play-services-auth:20.5.0")
 
+    implementation("com.github.Dimezis:BlurView:version-2.0.3")
+
     implementation(project(":common"))
 
     implementation(Dependencies.KotlinEx.coreCore)
