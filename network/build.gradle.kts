@@ -41,6 +41,7 @@ dependencies {
     implementation(Dependencies.KotlinEx.coreCore)
     implementation(Dependencies.UI.appCompat)
     implementation(Dependencies.UI.material)
+    implementation("com.google.firebase:firebase-database-ktx:21.0.0")
     testImplementation(Dependencies.Test.junitTest)
     androidTestImplementation(Dependencies.Test.extJunitTest)
     androidTestImplementation(Dependencies.Test.espressoTest)

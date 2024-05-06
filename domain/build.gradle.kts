@@ -35,6 +35,8 @@ android {
 }
 
 dependencies {
+    implementation(project(":data"))
+    implementation(project(":entity"))
 
     implementation(Dependencies.Hilt.hilt)
     kapt(Dependencies.Hilt.hiltKapt)

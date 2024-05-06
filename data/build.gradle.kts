@@ -35,8 +35,12 @@ android {
 }
 
 dependencies {
+    implementation(project(":network"))
+    implementation(project(":entity"))
+
 
     implementation(Dependencies.Hilt.hilt)
+    implementation("com.google.firebase:firebase-database-ktx:21.0.0")
     kapt(Dependencies.Hilt.hiltKapt)
     implementation(Dependencies.KotlinEx.coreCore)
     implementation(Dependencies.UI.appCompat)

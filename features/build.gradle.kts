@@ -2,6 +2,9 @@ plugins {
     id(Plugins.androidLibrary)
     id(Plugins.jetbrainsKotlin)
     id("com.google.gms.google-services")
+    id(Plugins.kotlinKapt)
+    id(Plugins.hilt)
+
 }
 
 android {
@@ -34,7 +37,10 @@ android {
     buildFeatures{
         viewBinding = true
     }
+
+
 }
+
 
 dependencies {
     implementation(platform("com.google.firebase:firebase-bom:31.5.0"))
@@ -44,6 +50,17 @@ dependencies {
     implementation("com.github.Dimezis:BlurView:version-2.0.3")
 
     implementation(project(":common"))
+    implementation(project(":domain"))
+    implementation(project(":entity"))
+
+    implementation(Dependencies.Hilt.hilt)
+    implementation(Dependencies.Hilt.hiltKapt)
+    kapt(Dependencies.Hilt.hiltKapt)
+
+
+    implementation(Dependencies.Glide.glideGlide)
+    implementation(Dependencies.Glide.glideCompiler)
+
 
     implementation(Dependencies.KotlinEx.coreCore)
     implementation(Dependencies.UI.appCompat)

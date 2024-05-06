@@ -1,6 +1,8 @@
 plugins {
     id(Plugins.androidLibrary)
     id(Plugins.jetbrainsKotlin)
+    id(Plugins.kotlinKapt)
+    id(Plugins.hilt)
 }
 
 android {
@@ -33,6 +35,8 @@ android {
 }
 
 dependencies {
+    implementation(Dependencies.Hilt.hilt)
+    kapt(Dependencies.Hilt.hiltKapt)
 
     implementation(Dependencies.Navigation.navigation)
     implementation(Dependencies.Navigation.navigationUi)
