@@ -5,6 +5,8 @@ plugins {
     id(Plugins.hilt)
 
     id("com.google.gms.google-services")
+
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {

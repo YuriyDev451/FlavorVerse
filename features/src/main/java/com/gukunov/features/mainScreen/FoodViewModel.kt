@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gukunov.domain.GetCategoryUseCase
 import com.gukunov.domain.GetFoodUseCase
+import com.gukunov.domain.SearchFoodUseCase
 import com.gukunov.entity.food.Category
 import com.gukunov.entity.food.Food
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -25,6 +26,9 @@ class FoodViewModel@Inject constructor(
     private val _category = MutableLiveData<List<Category>>()
     val category: LiveData<List<Category>> = _category
 
+//    private val _searchResult = MutableLiveData<List<Food>>()
+//    val searchResult: LiveData<List<Food>> get() = _searchResult
+
 
     init {
         viewModelScope.launch {
@@ -35,16 +39,24 @@ class FoodViewModel@Inject constructor(
         }
     }
 
-    suspend fun getFoods() {
+    private suspend fun getFoods() {
 
             getFoodUseCase.execute().collect { foods ->
                 _foods.value = foods
             }
     }
 
-    suspend fun getCategory() {
+    private suspend fun getCategory() {
         getCategoryUseCase.execute().collect{ category ->
             _category.value = category
         }
     }
+
+//    fun searchFood(query: String) {
+//        viewModelScope.launch {
+//            searchFoodUseCase.execute(query).collect {
+//                _searchResult.value = it
+//            }
+//        }
+//    }
 }

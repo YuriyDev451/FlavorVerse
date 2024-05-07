@@ -75,7 +75,7 @@
 
 
                 <EditText
-                    android:id="@+id/editTextText"
+                    android:id="@+id/searchTxt"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
                     android:textAlignment="center"
@@ -92,7 +92,7 @@
                     android:hint="Search Food..." />
 
                 <ImageView
-                    android:id="@+id/imageView2"
+                    android:id="@+id/searchImg"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_gravity="center"

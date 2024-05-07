@@ -45,5 +45,35 @@
         android:id="@+id/mainFragment"
         android:name="com.gukunov.features.mainScreen.MainFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_foodListFragment"
+            app:destination="@id/foodListFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_showFoodByCategoryFragment"
+            app:destination="@id/showFoodByCategoryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/foodListFragment"
+        android:name="com.gukunov.features.searchFood.FoodListFragment"
+        android:label="fragment_food_list"
+        tools:layout="@layout/fragment_food_list" >
+        <argument
+            android:name="searchQuery"
+            app:argType="string" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/showFoodByCategoryFragment"
+        android:name="com.gukunov.features.getFoodByCategory.ShowFoodByCategoryFragment"
+        android:label="fragment_show_by_category"
+        tools:layout="@layout/fragment_show_by_category" >
+        <argument
+            android:name="categoryId"
+            app:argType="integer" />
+        <argument
+            android:name="categoryName"
+            app:argType="string" />
+    </fragment>
+
 </navigation>

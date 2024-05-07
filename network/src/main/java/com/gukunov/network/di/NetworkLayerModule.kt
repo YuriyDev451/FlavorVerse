@@ -1,5 +1,6 @@
 package com.gukunov.network.di
 
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.gson.Gson
 import dagger.Module
@@ -20,6 +21,13 @@ class NetworkLayerModule {
     @Singleton
     fun provideFirebaseDatabase(): FirebaseDatabase {
         return FirebaseDatabase.getInstance()
+    }
+
+
+    @Provides
+    @Singleton
+    fun provideDatabaseReference(firebaseDatabase: FirebaseDatabase): DatabaseReference {
+        return firebaseDatabase.reference
     }
 
 }

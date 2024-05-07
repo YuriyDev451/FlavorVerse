@@ -2,78 +2,65 @@ package com.gukunov.features.mainScreen
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.gukunov.entity.food.Category
-import com.gukunov.entity.food.Food
-import com.gukunov.features.databinding.BestFoodItemBinding
+import com.gukunov.features.R
 import com.gukunov.features.databinding.CategoryItemBinding
 
-class MainCategoryAdapter: RecyclerView.Adapter<MainCategoryAdapter.MainCategoryViewHolder>() {
+class MainCategoryAdapter(private val onItemClick: (Category) -> Unit) : RecyclerView.Adapter<MainCategoryAdapter.MainCategoryViewHolder>() {
+
     private val differ = AsyncListDiffer(this, diffCallback)
 
-
-    fun setData(items: List<Category>){
+    fun setData(items: List<Category>) {
         differ.submitList(items)
     }
 
-
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): MainCategoryAdapter.MainCategoryViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainCategoryViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = CategoryItemBinding.inflate(inflater, parent, false)
         return MainCategoryViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: MainCategoryAdapter.MainCategoryViewHolder, position: Int) {
-        differ.currentList.getOrNull(position)?.let {
-            holder.bind(it)
-
-        }
+    override fun onBindViewHolder(holder: MainCategoryViewHolder, position: Int) {
+        val category = differ.currentList[position]
+        holder.bind(category)
     }
 
     override fun getItemCount(): Int {
         return differ.currentList.size
     }
 
-    inner class MainCategoryViewHolder(private val binding: CategoryItemBinding): RecyclerView.ViewHolder(binding.root){
-        fun bind(viewModel: Category){
+    inner class MainCategoryViewHolder(private val binding: CategoryItemBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(category: Category) {
+            binding.titleCatTxt.text = category.Name
+            Glide.with(binding.root).load(category.ImagePath).into(binding.imgCat)
 
-            binding.titleCatTxt.text = viewModel.Name
+            // Обработка клика на элементе
+//            binding.root.setOnClickListener {
+//                val bundle = bundleOf("categoryId" to category.Id)
+//                it.findNavController().navigate(R.id.action_mainFragment_to_foodListFragment, bundle)
+//            }
 
-
-
-
-
-//            val url = viewModel.ImagePath
-//            Glide.with(binding.root).load(url).into(binding.img)
-
-
+            binding.root.setOnClickListener {
+                onItemClick(category)
+            }
         }
     }
 
-    companion object{
-        private val diffCallback = object : DiffUtil.ItemCallback<Category>(){
-            override fun areItemsTheSame(
-                oldItem: Category,
-                newItem: Category
-            ): Boolean {
-                return oldItem.Id==newItem.Id
+    companion object {
+        private val diffCallback = object : DiffUtil.ItemCallback<Category>() {
+            override fun areItemsTheSame(oldItem: Category, newItem: Category): Boolean {
+                return oldItem.Id == newItem.Id
             }
 
-            override fun areContentsTheSame(
-                oldItem: Category,
-                newItem: Category
-            ): Boolean {
-                return oldItem==newItem
+            override fun areContentsTheSame(oldItem: Category, newItem: Category): Boolean {
+                return oldItem == newItem
             }
-
         }
-
     }
-
 }
