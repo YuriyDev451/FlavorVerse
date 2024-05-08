@@ -31,12 +31,12 @@
             android:layout_height="match_parent">
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/button3"
+                android:id="@+id/SignIn"
                 android:layout_width="300dp"
                 android:layout_height="60dp"
                 android:layout_marginBottom="136dp"
                 android:background="@drawable/button_background"
-                android:text="Register"
+                android:text="SignIn"
                 android:textAllCaps="false"
                 android:textStyle="bold"
                 android:textColor="#ffffff"
@@ -47,11 +47,11 @@
                 app:layout_constraintStart_toStartOf="parent" />
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/sign_in"
+                android:id="@+id/Register"
                 android:layout_width="300dp"
                 android:layout_height="60dp"
                 android:layout_marginTop="20dp"
-                android:text="Sign In"
+                android:text="Register"
                 android:textAllCaps="false"
                 android:textSize="25sp"
                 android:textColor="#ffffff"
@@ -59,7 +59,7 @@
                 android:background="@drawable/button_background"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/button3" />
+                app:layout_constraintTop_toBottomOf="@+id/SignIn" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 

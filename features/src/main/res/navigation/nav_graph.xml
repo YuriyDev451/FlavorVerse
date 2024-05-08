@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/mainFragment">
+    app:startDestination="@id/splashFragment">
 
     <fragment
         android:id="@+id/loginMethodFragment"
@@ -31,7 +31,11 @@
         android:id="@+id/logFragment"
         android:name="com.gukunov.features.auth.LogFragment"
         android:label="fragment_log"
-        tools:layout="@layout/fragment_log" />
+        tools:layout="@layout/fragment_log" >
+        <action
+            android:id="@+id/action_logFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
     <fragment
         android:id="@+id/regFragment"
         android:name="com.gukunov.features.auth.RegFragment"
@@ -52,6 +56,21 @@
         <action
             android:id="@+id/action_mainFragment_to_showFoodByCategoryFragment"
             app:destination="@id/showFoodByCategoryFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_foodDetailFragment"
+            app:destination="@id/foodDetailFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_showFoodByPriceFragment"
+            app:destination="@id/showFoodByPriceFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_getByTimeFragment"
+            app:destination="@id/getByTimeFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_getByTimeFragment2"
+            app:destination="@id/getByTimeFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_loginMethodFragment"
+            app:destination="@id/loginMethodFragment" />
     </fragment>
     <fragment
         android:id="@+id/foodListFragment"
@@ -61,6 +80,9 @@
         <argument
             android:name="searchQuery"
             app:argType="string" />
+        <action
+            android:id="@+id/action_foodListFragment_to_foodDetailFragment"
+            app:destination="@id/foodDetailFragment" />
 
     </fragment>
     <fragment
@@ -74,6 +96,51 @@
         <argument
             android:name="categoryName"
             app:argType="string" />
+        <action
+            android:id="@+id/action_showFoodByCategoryFragment_to_foodDetailFragment"
+            app:destination="@id/foodDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/foodDetailFragment"
+        android:name="com.gukunov.features.detail.FoodDetailFragment"
+        android:label="fragment_food_detail"
+        tools:layout="@layout/fragment_food_detail" >
+        <argument
+            android:name="detail"
+            app:argType="com.gukunov.entity.food.Food" />
+    </fragment>
+    <fragment
+        android:id="@+id/showFoodByPriceFragment"
+        android:name="com.gukunov.features.getFoodByPrice.ShowFoodByPriceFragment"
+        android:label="fragment_show_food_by_price"
+        tools:layout="@layout/fragment_show_food_by_price" >
+        <argument
+            android:name="id"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_showFoodByPriceFragment_to_foodDetailFragment"
+            app:destination="@id/foodDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/getByTimeFragment"
+        android:name="com.gukunov.features.getFoodByTime.GetByTimeFragment"
+        android:label="fragment_get_by_time"
+        tools:layout="@layout/fragment_get_by_time" >
+        <argument
+            android:name="time"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_getByTimeFragment_to_foodDetailFragment"
+            app:destination="@id/foodDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.gukunov.features.splash.SplashFragment"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash" >
+        <action
+            android:id="@+id/action_splashFragment_to_loginMethodFragment"
+            app:destination="@id/loginMethodFragment" />
     </fragment>
 
 </navigation>

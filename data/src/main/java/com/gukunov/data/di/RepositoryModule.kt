@@ -7,7 +7,15 @@ import com.gukunov.data.FoodRepositoryInterface
 import com.gukunov.data.GetByCategoryFoodRepositoryInterface
 import com.gukunov.data.GetCategoryRepository
 import com.gukunov.data.GetFoodByCategoryRepository
+import com.gukunov.data.GetFoodByPriceRepository
+import com.gukunov.data.GetFoodByPriceRepositoryInterface
+import com.gukunov.data.GetFoodByTimeRepository
+import com.gukunov.data.GetFoodByTimeRepositoryInterface
 import com.gukunov.data.GetFoodRepository
+import com.gukunov.data.GetPriceRepository
+import com.gukunov.data.GetPriceRepositoryInterface
+import com.gukunov.data.GetTimeRepository
+import com.gukunov.data.GetTimeRepositoryInterface
 import com.gukunov.data.SearchRepository
 import com.gukunov.data.SearchRepositoryInterface
 import dagger.Binds
@@ -37,7 +45,22 @@ abstract class RepositoryModule {
     @Singleton
     abstract fun providerGetByCategoryFoodRepository(repository: GetFoodByCategoryRepository): GetByCategoryFoodRepositoryInterface
 
+    @Binds
+    @Singleton
+    abstract fun providerGetPriceRepository(repository: GetPriceRepository): GetPriceRepositoryInterface
+
+    @Binds
+    @Singleton
+    abstract fun providerGetFoodByPriceRepository(repository: GetFoodByPriceRepository): GetFoodByPriceRepositoryInterface
 
 
+    @Binds
+    @Singleton
+    abstract fun providerGetFoodByTimeRepository(repository: GetFoodByTimeRepository): GetFoodByTimeRepositoryInterface
+
+
+    @Binds
+    @Singleton
+    abstract fun providerGetTimeRepository(repository: GetTimeRepository): GetTimeRepositoryInterface
 
 }

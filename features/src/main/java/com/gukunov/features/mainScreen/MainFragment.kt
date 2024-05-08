@@ -6,12 +6,22 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
+import com.gukunov.entity.food.Price
+import com.gukunov.entity.food.Time
+import com.gukunov.features.R
+import com.gukunov.features.auth.LogFragmentDirections
 import com.gukunov.features.databinding.FragmentMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -34,6 +44,9 @@ class MainFragment : Fragment() {
 
     private lateinit var adapter: MainFoodAdapter
     private lateinit var categoryAdapter: MainCategoryAdapter
+    private lateinit var price: List<Price>
+    private lateinit var time: List<Time>
+
 
 
     override fun onCreateView(
@@ -59,6 +72,31 @@ class MainFragment : Fragment() {
 //            Test("David", 28, 4),
 //            Test("Emma", 32, 5)
 //        )
+        binding.signOut.setOnClickListener {
+            Firebase.auth.signOut()
+            val action = MainFragmentDirections.actionMainFragmentToLoginMethodFragment()
+            findNavController().navigate(action)
+        }
+
+        val account: GoogleSignInAccount? = context?.let { GoogleSignIn.getLastSignedInAccount(it) }
+
+// Проверяем, успешно ли выполнена аутентификация
+        if (account != null) {
+            // Получаем имя пользователя
+            val userName: String? = account.displayName
+
+            // Используем имя пользователя, например, отображаем его на экране
+            if (userName != null) {
+                // Например, отображаем имя пользователя в TextView
+                binding.uName.text = userName
+            }
+        } else {
+            // Пользователь не аутентифицирован, обрабатываем этот случай
+        }
+
+
+
+
 
         foodViewModel.foods.observe(viewLifecycleOwner, Observer {
             // Обновить UI с полученными данными о еде
@@ -86,6 +124,80 @@ class MainFragment : Fragment() {
         }
 
 
+        val adapter = ArrayAdapter<String>(requireContext(), android.R.layout.simple_spinner_item, ArrayList<String>())
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.priceSpinner.adapter = adapter
+
+
+        foodViewModel.price.observe(viewLifecycleOwner, { prices ->
+            price = prices
+            val priceList = prices.map { it.Value } // Используйте reversed() для переворачивания списка
+            adapter.clear()
+            adapter.addAll(priceList)
+            adapter.notifyDataSetChanged()
+        })
+
+         var isUserInteracted = false
+
+        binding.priceSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                if (isUserInteracted) { // Проверяем, было ли пользовательское взаимодействие
+                    val selectedPriceId = price[position].Id // Используем сохраненный список цен
+                    val action = selectedPriceId?.toInt()?.let { MainFragmentDirections.actionMainFragmentToShowFoodByPriceFragment(it) }
+                    if (action != null) {
+                        findNavController().navigate(action)
+                        isUserInteracted = false // Сбрасываем флаг после перехода на следующий экран
+                    }
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                // Обработка события отсутствия выбора
+            }
+        }
+
+        binding.priceSpinner.setOnTouchListener { _, _ ->
+            isUserInteracted = true // Устанавливаем флаг, когда пользователь взаимодействует с элементами
+            false
+        }
+
+
+
+        val timeAdapter = ArrayAdapter<String>(requireContext(), android.R.layout.simple_spinner_item, ArrayList<String>())
+        timeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.timeSpinner.adapter = timeAdapter
+
+
+        foodViewModel.time.observe(viewLifecycleOwner, { tim ->
+            time = tim
+            val timeList = tim.map { it.Value }
+            timeAdapter.clear()
+            timeAdapter.addAll(timeList)
+            timeAdapter.notifyDataSetChanged()
+        })
+        var isInteracted = false
+
+        binding.timeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                if (isInteracted) { // Проверяем, было ли пользовательское взаимодействие
+                    val selectedTimeId = time[position].Id // Используем сохраненный список цен
+                    val action = selectedTimeId?.toInt()?.let { MainFragmentDirections.actionMainFragmentToGetByTimeFragment2(it) }
+                    if (action != null) {
+                        findNavController().navigate(action)
+                        isInteracted = false // Сбрасываем флаг после перехода на следующий экран
+                    }
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                // Обработка события отсутствия выбора
+            }
+        }
+
+        binding.timeSpinner.setOnTouchListener { _, _ ->
+            isInteracted = true // Устанавливаем флаг, когда пользователь взаимодействует с элементами
+            false
+        }
 
     }
 
@@ -94,6 +206,13 @@ class MainFragment : Fragment() {
         binding.foodRW.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.foodRW.adapter = adapter
+
+        adapter.setOnItemClickListener { detail ->
+            val bundle = Bundle().apply {
+                putParcelable("detail", detail)
+            }
+            findNavController().navigate(R.id.action_mainFragment_to_foodDetailFragment, bundle)
+        }
     }
 
     fun initCategoryRecyclerAdapter() {

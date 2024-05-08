@@ -50,6 +50,8 @@ dependencies {
 
     implementation("com.github.Dimezis:BlurView:version-2.0.3")
 
+    implementation("com.airbnb.android:lottie:4.0.0")
+
     implementation(project(":common"))
     implementation(project(":domain"))
     implementation(project(":entity"))

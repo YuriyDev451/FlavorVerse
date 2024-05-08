@@ -7,8 +7,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.gukunov.features.R
 import com.gukunov.features.databinding.FragmentLoginMethodBinding
+import com.gukunov.features.mainScreen.MainFragmentDirections
 
 
 class LoginMethodFragment : Fragment() {
@@ -23,6 +25,21 @@ class LoginMethodFragment : Fragment() {
         return binding.root
 
 
+
+
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.SignIn.setOnClickListener {
+            val action = LoginMethodFragmentDirections.actionLoginMethodFragmentToLogFragment()
+            findNavController().navigate(action)
+        }
+
+        binding.Register.setOnClickListener {
+            val action = LoginMethodFragmentDirections.actionLoginMethodFragmentToRegFragment()
+            findNavController().navigate(action)
+        }
     }
 
 

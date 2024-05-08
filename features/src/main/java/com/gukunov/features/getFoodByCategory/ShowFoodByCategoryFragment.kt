@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.gukunov.features.R
@@ -48,12 +49,23 @@ class ShowFoodByCategoryFragment : Fragment() {
             adapter.setData(foodsByCateg)
             binding.progressBar2.visibility = View.GONE
         })
+
+        binding.backBtn.setOnClickListener {
+            activity?.onBackPressed()
+        }
     }
 
     private fun initRecyclerAdapter() {
         adapter = FoodListAdapter()
         binding.foodList.layoutManager = GridLayoutManager(context, 2)
         binding.foodList.adapter = adapter
+
+        adapter.setOnItemClickListener { detail ->
+            val bundle = Bundle().apply {
+                putParcelable("detail", detail)
+            }
+            findNavController().navigate(R.id.action_showFoodByCategoryFragment_to_foodDetailFragment, bundle)
+        }
     }
 
 }

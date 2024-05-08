@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.navigation.fragment.findNavController
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -82,7 +83,8 @@ class LogFragment : Fragment() {
 
         firebaseAuth.signInWithEmailAndPassword(email, password)
             .addOnSuccessListener {
-                open()
+                val action = LogFragmentDirections.actionLogFragmentToMainFragment()
+                findNavController().navigate(action)
             }
             .addOnFailureListener { e ->
                 // Обработка ошибок при входе
@@ -96,7 +98,8 @@ class LogFragment : Fragment() {
     }
 
     fun open(){
-        Toast.makeText(requireContext(), "success", Toast.LENGTH_SHORT).show()
+        val action = LogFragmentDirections.actionLogFragmentToMainFragment()
+        findNavController().navigate(action)
     }
 
 
@@ -141,7 +144,9 @@ class LogFragment : Fragment() {
                             //Log.d("TAG", "signInWithCredential:success")
 //                            val user = Firebase.auth.currentUser
 //                            //updateUI(user)
-                            Toast.makeText(requireContext(), "Success", Toast.LENGTH_SHORT).show()
+//                            Toast.makeText(requireContext(), "Success", Toast.LENGTH_SHORT).show()
+                            val action = LogFragmentDirections.actionLogFragmentToMainFragment()
+                            findNavController().navigate(action)
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("TAG", "signInWithCredential:failure", task.exception)

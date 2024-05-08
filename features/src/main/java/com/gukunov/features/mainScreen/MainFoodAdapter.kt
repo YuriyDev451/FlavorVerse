@@ -13,10 +13,15 @@ import com.gukunov.features.databinding.BestFoodItemBinding
 class MainFoodAdapter: RecyclerView.Adapter<MainFoodAdapter.MainFoodViewHolder>() {
 
     private val differ = AsyncListDiffer(this, diffCallback)
+    private var onItemClickListener: ((Food) -> Unit)? = null
 
 
     fun setData(items: List<Food>){
         differ.submitList(items)
+    }
+
+    fun setOnItemClickListener(listener: (Food) -> Unit) {
+        onItemClickListener = listener
     }
 
 
@@ -54,7 +59,9 @@ class MainFoodAdapter: RecyclerView.Adapter<MainFoodAdapter.MainFoodViewHolder>(
             val url = viewModel.ImagePath
             Glide.with(binding.root).load(url).into(binding.img)
 
-
+            binding.root.setOnClickListener {
+                onItemClickListener?.invoke(viewModel)
+            }
         }
     }
 

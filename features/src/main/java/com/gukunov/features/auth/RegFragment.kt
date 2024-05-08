@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
@@ -69,7 +70,8 @@ class RegFragment : Fragment() {
         firebaseAuth.createUserWithEmailAndPassword(email, password)
             .addOnSuccessListener {
                 // Успешная регистрация
-                Toast.makeText(requireContext(), "Регистрация успешна", Toast.LENGTH_SHORT).show()
+                val action = RegFragmentDirections.actionRegFragmentToLogFragment()
+                findNavController().navigate(action)
             }
             .addOnFailureListener { e ->
                 // Обработка ошибок при регистрации

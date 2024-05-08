@@ -14,7 +14,7 @@ data class Food(
     @SerializedName("LocationId") var LocationId: Int? = null,
     @SerializedName("Price") var Price: Double? = null,
     @SerializedName("PriceId") var PriceId: Int? = null,
-    @SerializedName("Star") var Star: Double? = null,
+    @SerializedName("Star") var Star: Float? = null,
     @SerializedName("TimeId") var TimeId: Int? = null,
     @SerializedName("TimeValue") var TimeValue: Int? = null,
     @SerializedName("Title") var Title: String? = null
